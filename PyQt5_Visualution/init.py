@@ -1,27 +1,23 @@
-import sys  # sys нужен для передачи argv в QApplication
-import os  # Отсюда нам понадобятся методы для отображения содержимого директорий
+import sys
+import os
 
 from PyQt5 import QtWidgets
-import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import random
-import second
-import design  # Это наш конвертированный файл дизайна
+import painting
+import design
 from PyQt5.QtWidgets import *
 import cv2
 from keras.models import load_model
 import numpy as np
-model = load_model('my_model.h5')
+model = load_model('data/my_model.h5')
 
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_Program):
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
         self.scene = QtWidgets.QGraphicsScene()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-        self.File.clicked.connect(self.operation)  # Выполнить функцию browse_folder
+        self.setupUi(self)
+        self.File.clicked.connect(self.operation)
         self.Exit.clicked.connect(QtWidgets.qApp.quit)
         self.Paint.clicked.connect(self.painting)
         self.drawing = False
@@ -41,7 +37,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Program):
         self.textBrowser.append(label_result)
         
     def painting(self):
-        dialog = Second(self)
+        dialog = PaintWindow(self)
         self.dialogs.append(dialog)
         dialog.show()
         
@@ -59,7 +55,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Program):
         results = self.model.predict(sample_test)
         result = np.argmax(results,axis = 1)[0]
         if fname:
-            return 'Ответ: это цифра {}'.format(result)
+            return '  Ответ: это цифра {}'.format(result)
         else:
             return ''
     def get_answer_from_paiting(self, fname):
@@ -73,24 +69,25 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Program):
         label_result = self.calculate_digit(fname)
         self.textBrowser.append(label_result)
 
-class Second(QtWidgets.QMainWindow, second.Ui_MainWindow):
+class PaintWindow(QtWidgets.QMainWindow, painting.Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__()
         self.parent = parent
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.setupUi(self)
         self.drawing = True
         self.OK.clicked.connect(self.exit_and_send_image)
         self.lastPoint = QPoint()
-        self.image = QPixmap("white.jpg")
+        self.image = QPixmap("data/white.jpg")
         self.setGeometry(510, 80, 800, 800)
         self.resize(self.image.width(), self.image.height())
         self.show()        
         
     def exit_and_send_image(self):
-        self.image.save('temp_painting.png')
+        self.image.save('data/temp_painting.png')
         self.hide()
-        self.parent.get_answer_from_paiting(os.path.abspath("temp_painting.png"))
-        
+        self.parent.get_answer_from_paiting(os.path.abspath("data/temp_painting.png"))
+        self.drawing = False
+
     def paintEvent(self, event):
         if self.drawing:
             painter = QPainter(self)
@@ -105,7 +102,7 @@ class Second(QtWidgets.QMainWindow, second.Ui_MainWindow):
     def mouseMoveEvent(self, event):
         if event.buttons() and Qt.LeftButton and self.drawing:
             painter = QPainter(self.image)
-            painter.setPen(QPen(Qt.black, 25, Qt.SolidLine))
+            painter.setPen(QPen(Qt.black, 35, Qt.SolidLine))
             painter.drawLine(self.lastPoint, event.pos())
             self.lastPoint = event.pos()
             self.update()
@@ -118,10 +115,10 @@ class Second(QtWidgets.QMainWindow, second.Ui_MainWindow):
             
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
-    window = ExampleApp()  # Создаём объект класса ExampleApp
-    window.show()  # Показываем окно
-    app.exec_()  # и запускаем приложение
+    app = QtWidgets.QApplication(sys.argv)
+    window = ExampleApp()
+    window.show()
+    app.exec_()
 
-if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
-    main()  # то запускаем функцию main()
+if __name__ == '__main__':
+    main()

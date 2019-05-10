@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'first.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import *
@@ -13,7 +8,7 @@ from PyQt5.QtCore import *
 class Ui_Program(object):
     def setupUi(self, Program):
         Program.setObjectName("Program")
-        Program.setWindowIcon(QIcon('nn.png'))
+        Program.setWindowIcon(QIcon('data/nn.png'))
         Program.resize(916, 674)
         self.centralwidget = QtWidgets.QWidget(Program)
         self.centralwidget.setObjectName("centralwidget")
@@ -23,8 +18,8 @@ class Ui_Program(object):
         
         
         self.File = QtWidgets.QPushButton(self.centralwidget)
-        self.File.setStyleSheet("background-color:#18BDFF; border-radius: 5px;");
-        self.File.setIcon(QIcon("open.png"))
+        self.File.setStyleSheet("color:white; background-color:#18BDFF; border-radius: 5px; font: 11pt \"Segoe UI Semibold\";");
+        self.File.setIcon(QIcon("data/open.png"))
         self.File.setIconSize(QSize(48, 48))  
         self.File.setGeometry(QtCore.QRect(30, 50, 231, 61))
         font = QtGui.QFont()
@@ -36,8 +31,8 @@ class Ui_Program(object):
         
         self.Paint = QtWidgets.QPushButton(self.centralwidget)
         self.Paint.setAutoFillBackground(True)
-        self.Paint.setStyleSheet("background-color:#18BDFF; border-radius: 5px;");
-        self.Paint.setIcon(QIcon("paint.png"))
+        self.Paint.setStyleSheet("color:white; background-color:#18BDFF; border-radius: 5px; font: 11pt \"Segoe UI Semibold\";");
+        self.Paint.setIcon(QIcon("data/paint.png"))
         self.Paint.setIconSize(QSize(48, 48))  
         self.Paint.setGeometry(QtCore.QRect(320, 50, 231, 61))
         font = QtGui.QFont()
@@ -50,8 +45,8 @@ class Ui_Program(object):
        
         self.Exit = QtWidgets.QPushButton(self.centralwidget)
         self.Exit.setAutoFillBackground(True)
-        self.Exit.setStyleSheet("background-color:#18BDFF; border-radius: 5px;");
-        self.Exit.setIcon(QIcon("exit.png"))
+        self.Exit.setStyleSheet("color:white; background-color:#18BDFF; border-radius: 5px; font: 11pt \"Segoe UI Semibold\";");
+        self.Exit.setIcon(QIcon("data/exit.png"))
         self.Exit.setIconSize(QSize(48, 48))  
         self.Exit.setGeometry(QtCore.QRect(610, 50, 231, 61))
         font = QtGui.QFont()
@@ -62,8 +57,8 @@ class Ui_Program(object):
         
         
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(320, 570, 256, 61))
-        self.textBrowser.setStyleSheet("font: 14pt \"MS Shell Dlg 2\";")
+        self.textBrowser.setGeometry(QtCore.QRect(320, 570, 256, 50))
+        self.textBrowser.setStyleSheet("color:white; background-color:#18BDFF; border-radius: 5px; font: 16pt \"Segoe UI Light\";")
         self.textBrowser.setObjectName("textBrowser")
         
         
@@ -78,6 +73,6 @@ class Ui_Program(object):
         self.File.setText(_translate("Program", "Выберете файл"))
         self.Exit.setText(_translate("Program", "      Выход"))
         self.Paint.setText(_translate("Program", " Нарисовать цифру"))
-
+        self.textBrowser.setText(_translate("Program", "     Тут будет ответ"))
         
 
