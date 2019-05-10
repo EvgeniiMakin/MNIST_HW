@@ -70,7 +70,7 @@ class Ui_Program(object):
     def retranslateUi(self, Program):
         _translate = QtCore.QCoreApplication.translate
         Program.setWindowTitle(_translate("Program", "Handwritten Number Recognition Program"))
-        self.File.setText(_translate("Program", "Выберете файл"))
+        self.File.setText(_translate("Program", "Выберите файл"))
         self.Exit.setText(_translate("Program", "      Выход"))
         self.Paint.setText(_translate("Program", " Нарисовать цифру"))
         self.textBrowser.setText(_translate("Program", "     Тут будет ответ"))
